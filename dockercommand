@@ -34,4 +34,15 @@ Docker networking
    55  docker netowrk inspect 4ced
    56  docker network inspect 4ced
 
+Docker Netowkring
+ 62  docker network ls
+   63  docker network create my_app_net
+   64  docker network ls
+   65  docker network inspect my_app_net
+   66  docker run -d --name proxy --network my_app_net nginx:alpine
+   67  docker run -d --name mynginx --network my_app_net nginx:alpine
+   68  docker network ls
+   69  docker network inspect my_app_net
+   71  docker exec -it mynginx ping proxy
+   72  docker exec -it proxy ping mynginx
 
