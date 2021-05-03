@@ -9,3 +9,8 @@ how to stop and start a container
    19  docker ps -a
    20  docker start 5d5a
    21  docker ps
+   
+   How to check the log of a container
+   23  docker ps
+   24  docker container logs 5d5a1
+
