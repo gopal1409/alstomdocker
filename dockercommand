@@ -13,4 +13,10 @@ how to stop and start a container
    How to check the log of a container
    23  docker ps
    24  docker container logs 5d5a1
+   
+   deploy few more cotnainer
+   29  docker container run --publish 82:80 --detach httpd
+   30  docker run --name mongo -d mongo
+   31  docker ps
+
 
