@@ -18,5 +18,15 @@ how to stop and start a container
    29  docker container run --publish 82:80 --detach httpd
    30  docker run --name mongo -d mongo
    31  docker ps
+container isolation using process id
+ 38  docker ps
+   39  docker top mongo
+   40  ps aux
+   41  kill -9 17389
+   42  docker ps
+   43  docker ps -a
+   44  docker start e187
+   45  docker ps
+   46  docker top e187
 
 
