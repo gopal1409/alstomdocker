@@ -1,0 +1,9 @@
+ 1 az login
+   2 az aks get-credentials --resource-group aks-rg --name aks-demo
+   3 az aks get-credentials --resource-group aks-rg --name aksdemo
+   4 clear
+   5 kubectl get nodes
+   6 kubectl get pod --all-namespaces
+   7 kubectl run my-first-pod --image stacksimplify/kubenginx:1.0.0
+   8 kubectl get pod
+   9 kubectl get pod -o wide
