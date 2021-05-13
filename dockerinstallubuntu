@@ -24,3 +24,37 @@ EOF
    17  apt-get update
    18  apt-get install -y kubelet kubeadm kubectl
    19  apt-mark hold kubelet kubeadm kubectl
+Ubuntu slave machine
+2  cat <<EOF | sudo tee /etc/modules-load.d/containerd.conf
+overlay
+br_netfilter
+EOF
+
+    3  modprobe overlay
+    4  modprobe br_netfilter
+    5  cat <<EOF | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf
+net.bridge.bridge-nf-call-iptables  = 1
+net.ipv4.ip_forward                 = 1
+net.bridge.bridge-nf-call-ip6tables = 1
+EOF
+
+    6  sysctl --system
+    7  mkdir -p /etc/containerd
+   26  apt-get update
+   38  apt-get update
+   39  apt-get install     apt-transport-https     ca-certificates     curl     gnupg     lsb-release
+   40  echo   "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+   41  apt-get update
+   42  apt-get install containerd.io
+   43  mkdir -p /etc/containerd
+   44  containerd config default | sudo tee /etc/containerd/config.toml
+   45  systemctl restart containerd
+   49  apt-get update
+   50  apt-get install -y apt-transport-https ca-certificates curl
+   51  curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+   52  echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   53  apt-get update
+   54  apt-get install -y kubelet kubeadm kubectl
+   55  apt-mark hold kubelet kubeadm kubectl
+   56  history
