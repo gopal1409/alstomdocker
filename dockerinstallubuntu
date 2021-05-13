@@ -7,3 +7,20 @@
     7  apt-get install docker-ce docker-ce-cli containerd.io
     8  docker --version
     9  history
+10  cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
+br_netfilter
+EOF
+
+   11  cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+EOF
+
+   12  sudo sysctl --system
+   13  apt-get update
+   14  apt-get install -y apt-transport-https ca-certificates curl
+   15  curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+   16  echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   17  apt-get update
+   18  apt-get install -y kubelet kubeadm kubectl
+   19  apt-mark hold kubelet kubeadm kubectl
